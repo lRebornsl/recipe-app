@@ -1,10 +1,16 @@
 <div class="border-b border-black">
   <nav class="container mx-auto py-8">
     <ul class="flex justify-between">
-      <li><%= link_to 'Inicio', root_path %></li>
+      <li><%= link_to 'Inicio', users_path %></li>
       <div class="flex">
-        <li class="pr-4"><%= button_to 'Sign-in', new_user_session_path %></li>
-        <li><%= link_to 'Sign-up', new_user_registration_path %></li>
+        <% if user_signed_in? %>
+          <%= button_to destroy_user_session_path, method: :delete do %>
+            Log Out
+          <% end %>
+        <% else %>
+          <li class="pr-4"><%= button_to 'Sign-in', new_user_session_path %></li>
+          <li><%= link_to 'Sign-up', new_user_registration_path %></li>
+        <% end %>
       </div>
     </ul>
   </nav>
