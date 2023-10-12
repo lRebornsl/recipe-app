@@ -1,0 +1,20 @@
+<p class="text-green-500"><%= notice %></p>
+
+<div class="flex justify-end my-2">
+  <%= link_to "Add food", new_user_food_path, class: "border border-black px-2" %>
+</div>
+
+<div class="border border-black">
+  <div class="grid grid-cols-5 bg-gray-300">
+    <p class="border-r border-black pl-2"><strong>Name</strong></p>
+    <p class="border-r border-black pl-2"><strong>Measurement Unit</strong></p>
+    <p class="border-r border-black pl-2"><strong>Price</strong></p>
+    <p class="border-r border-black pl-2"><strong>Quantity</strong></p>
+    <p class="pl-2"><strong>Actions</strong></p>
+  </div>
+  <div id="foods">
+    <% @foods.each_with_index do |food, index| %>
+      <%= render partial: "food", locals: { food: food, index: index } %>
+    <% end %>
+  </div>
+</div>
