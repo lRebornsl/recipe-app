@@ -9,11 +9,28 @@
   <%= button_to "Delete", user_recipe_path(current_user, @recipe), method: :delete %>
 </div>
 
-<%= link_to "Add Food to Recipe", new_user_food_path(current_user, recipe_id: @recipe.id) %>
+<%= link_to "Add Food to Recipe", new_user_recipe_recipe_food_path(current_user, @recipe) %>
 
 <h2>Foods in This Recipe</h2>
 <ul>
-  <% @recipe.foods.each do |food| %>
-    <li><%= food.name %> - Quantity: <%= food.quantity %> (<%= food.measurement_unit %>) - Price: <%= food.price %></li>
+  <% total_value = 0 %>
+  <% @recipe.recipe_foods.each do |recipe_food| %>
+    <li>
+      <%= recipe_food.food.name %> - Quantity: <%= recipe_food.quantity %> (<%= recipe_food.food.measurement_unit %>) - Price: <%= recipe_food.food.price %> | 
+      <% food_total = recipe_food.quantity * recipe_food.food.price %>
+
+      <%= form_with(model: recipe_food, local: false, url: user_recipe_recipe_food_path(current_user, recipe_food.recipe, recipe_food), method: :patch, remote: true) do |form| %>
+        <%= form.hidden_field :quantity, value: recipe_food.quantity %>
+        <%= form.submit "+", name: "increment", class: "quantity-button" %>
+        <%= form.submit "-", name: "decrement", class: "quantity-button" %>
+      <% end %>
+
+      <%= button_to "Delete", user_recipe_recipe_food_path(current_user, recipe_food.recipe, recipe_food), method: :delete, remote: true %>
+
+      (Total: <%= food_total %>)
+      <% total_value += food_total %>
+    </li>
   <% end %>
 </ul>
+
+<p>Total Value: <%= total_value %></p>
