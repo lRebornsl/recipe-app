@@ -1,0 +1,27 @@
+<%= form_with(model: [current_user, recipe], local: true, url: user_recipe_path(current_user, recipe), method: :patch) do |form| %>
+
+  <% if recipe.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+      <ul>
+        <% recipe.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
