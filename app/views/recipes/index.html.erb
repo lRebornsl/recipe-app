@@ -6,12 +6,9 @@
   <% @recipes.each do |recipe| %>
     <%= render recipe %>
     <p>
-      <%= link_to "Show this recipe", user_recipe_path(current_user, recipe) %> |
-      <%= link_to "Edit", edit_user_recipe_path(current_user, recipe) %> | 
-      <%= button_to "Delete", user_recipe_path(current_user, recipe), method: :delete %>
-
+      <%= link_to "Show this recipe", recipe %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New recipe", new_user_recipe_path(current_user) %>
+<%= link_to "New recipe", new_recipe_path %>
