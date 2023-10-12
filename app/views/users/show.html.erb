@@ -4,7 +4,22 @@
 
 <div>
   <%= link_to "Edit this user", edit_user_path(@user) %> |
-  <%= link_to "Back to users", users_path %>
+  <%= link_to "Back to users", users_path %> | <%= link_to "New Recipe", new_user_recipe_path(@user) %>
 
-  <%= button_to "Destroy this user", @user, method: :delete %>
+  <%= button_to "Delete this user", @user, method: :delete %>
+</div>
+
+<div>
+  <h2>My Recipes</h2>
+
+  <div id="recipes">
+    <% @user.recipes.each do |recipe| %>
+      <%= render recipe %>
+      <p>
+        <%= link_to "Show this recipe", user_recipe_path(@user, recipe) %> | 
+        <%= link_to "Edit", edit_user_recipe_path(@user, recipe) %> | 
+        <%= link_to "Delete", user_recipe_path(@user, recipe), method: :delete %>
+      </p>
+    <% end %>
+  </div>
 </div>
