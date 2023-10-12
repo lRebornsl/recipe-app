@@ -11,11 +11,15 @@ class FoodsController < ApplicationController
 
   def create
     @food = Food.new(food_params)
-    @user = current_user
-    @food.user_id = @user.id
+    @food.user_id = current_user.id
 
     if @food.save
-      redirect_to user_foods_path(@user)
+      # Create a recipe_food record to associate this food with the recipe
+      recipe = Recipe.find(params[:recipe_id])
+      recipe_food = RecipeFood.new(recipe:, food: @food)
+      recipe_food.save
+
+      redirect_to user_recipe_path(current_user, recipe)
     else
       render :new, status: :unprocessable_entity
     end

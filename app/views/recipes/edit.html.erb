@@ -1,6 +1,7 @@
 <h1>Editing recipe</h1>
 
 <%= render "edit_form", recipe: @recipe %>
+<p><strong>Status:</strong> <%= @recipe.public ? "Public" : "Private" %></p>
 
 <br>
 

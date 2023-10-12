@@ -1,10 +1,19 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @recipe %>
+<p><strong>Status:</strong> <%= @recipe.public ? "Public" : "Private" %></p>
 
 <div>
   <%= link_to "Edit this recipe", edit_user_recipe_path(current_user, @recipe) %> |
   <%= link_to "Back to recipes", user_recipes_path %> |
   <%= button_to "Delete", user_recipe_path(current_user, @recipe), method: :delete %>
-
 </div>
+
+<%= link_to "Add Food to Recipe", new_user_food_path(current_user, recipe_id: @recipe.id) %>
+
+<h2>Foods in This Recipe</h2>
+<ul>
+  <% @recipe.foods.each do |food| %>
+    <li><%= food.name %> - Quantity: <%= food.quantity %> (<%= food.measurement_unit %>) - Price: <%= food.price %></li>
+  <% end %>
+</ul>

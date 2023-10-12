@@ -9,9 +9,9 @@
   <%= button_to "Delete this user", @user, method: :delete %>
 </div>
 
-<div class="border border-solid border-black rounded-md p-4">
-  
-  <h2>My Recipes</h2>
+<h2>My Recipes</h2>
+
+<div class="border border-solid border-black rounded-md p-4">  
 
   <div id="recipes">
     <% @user.recipes.each do |recipe| %>

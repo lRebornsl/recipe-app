@@ -4,7 +4,7 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.where(public: true)
   end
 
   def create
@@ -50,6 +50,6 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:name, :description, :user_id)
+    params.require(:recipe).permit(:name, :description, :public, :user_id)
   end
 end
