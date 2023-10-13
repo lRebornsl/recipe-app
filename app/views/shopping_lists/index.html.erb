@@ -1,0 +1,16 @@
+<!-- FILEPATH: /home/reborns/Microverse_Repos/recipe-app/app/views/shopping_lists/index.html.erb -->
+
+<h1>Shopping List</h1>
+
+<p>Total Foods: <%= @total_foods %></p>
+<p>Total Price: <%= number_to_currency(@total_price) %></p>
+
+<ul>
+  <% @greater_quantities.each do |food_id, details| %>
+    <li>
+      Food Name: <%= details[:name] %><br>
+      Quantity: <%= details[:quantity] %><br>
+      Price: <%= number_to_currency(details[:price]) %>
+    </li>
+  <% end %>
+</ul>
