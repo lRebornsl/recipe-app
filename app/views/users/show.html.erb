@@ -13,14 +13,29 @@
 
 <div class="border border-solid border-black rounded-md p-4">  
 
-  <div id="recipes">
-    <% @user.recipes.each do |recipe| %>
-      <%= render recipe %>
-      <p>
-        <%= link_to "Show this recipe", user_recipe_path(@user, recipe) %> |
+  <div id="recipes" class="center-elements-row recipe-index">
+  <% @user.recipes.each_with_index do |recipe, index| %>
+    <div class="center-elements-row <%= index.even? ? 'even' : 'odd' %>">
+      <div class="recipe-index-title">
+        <%= link_to recipe.name, user_recipe_path(@user, recipe) %>
         <%= link_to "Delete", user_recipe_path(@user, recipe), method: :delete %>
-      </p>
-    <% end %>
-  </div>
+      </div>
+      <div class="recipe-index-description">
+        <h3>Description</h3>
+        <%= link_to recipe.description, user_recipe_path(@user, recipe) %>
+      </div>
+    </div>
+    <style>
+      .even {
+        background-color: #f2f2f2; /* Gris claro */
+      }
+
+      .odd {
+        background-color: #ffffff; /* Blanco */
+      }
+    </style>
+  <% end %>
+</div>
+
   
 </div>

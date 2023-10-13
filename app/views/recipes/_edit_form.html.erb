@@ -11,20 +11,6 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div>
-    <%= form.label :public %>
-    <%= form.check_box :public %>
-  </div>
 
   <h2>Foods in This Recipe</h2>
   <ul>
@@ -38,7 +24,6 @@
       </li>
     <% end %>
   </ul>
-
   <div>
     <%= form.submit "Save Recipe"%>
   </div>

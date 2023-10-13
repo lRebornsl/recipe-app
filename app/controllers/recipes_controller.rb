@@ -33,7 +33,7 @@ class RecipesController < ApplicationController
       redirect_to user_recipe_path(current_user, @recipe)
     else
       render 'edit'
-    end  
+    end
   end
 
   def destroy
@@ -45,6 +45,12 @@ class RecipesController < ApplicationController
       flash[:error] = 'Failed to delete recipe.'
     end
     redirect_to user_recipes_path(current_user)
+  end
+
+  def toggle_privacy
+    @recipe = Recipe.find(params[:id])
+    @recipe.update(public: !@recipe.public) # Cambiar la privacidad
+    redirect_to user_recipe_path(current_user, @recipe)
   end
 
   private

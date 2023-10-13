@@ -23,12 +23,11 @@ class RecipeFoodsController < ApplicationController
   def update
     @recipe_food = RecipeFood.find(params[:id])
     if @recipe_food.update(recipe_food_params)
-      flash[:success] = "Quantity updated successfully"
+      flash[:success] = 'Quantity updated successfully'
     else
-      flash[:error] = "Failed to update quantity"
+      flash[:error] = 'Failed to update quantity'
     end
     redirect_to user_recipe_path(current_user, @recipe_food.recipe)
-  
   end
 
   def edit

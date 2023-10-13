@@ -22,6 +22,30 @@
   </div>
 
   <div>
+    <%= form.label :preparation_time, "Preparation Time (minutes):" %>
+    <%= form.number_field :preparation_time, min: 0 %>
+  </div>
+
+  <div>
+    <%= form.label :cooking_time, "Cooking Time (minutes):" %>
+    <%= form.number_field :cooking_time, min: 0 %>
+  </div>
+  
+  <div>
+    <%= form.label :description, "Recipe Instructions:" %>
+    <%= form.text_area :description%>
+  </div>
+  <%= form.submit "Update Recipe Details" %>
+  </div>
+
+
+
+
+
+
+
+
+  <div>
     <%= form.label :public %>
     <%= form.check_box :public %>
   </div>

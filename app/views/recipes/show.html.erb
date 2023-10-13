@@ -1,33 +1,90 @@
 <p style="color: green"><%= notice %></p>
-<%= render @recipe %>
-<p><strong>Status:</strong> <%= @recipe.public ? "Public" : "Private" %></p>
-<div>
-  <%= link_to "Back to recipes", user_recipes_path %> |
-  <%= button_to "Delete", user_recipe_path(current_user, @recipe), method: :delete %>
-</div>
+<div class="div-recipes">
+  <div class="div-recipe recipes-content">
+    <%# <%= render @recipe %>
+    <h2 class="center-elements"><%= @recipe.name %></h2>
+    <div class="center-elements-row">
+      <h3 class="center-elements">Preparation Time (minutes): 
+        <% if @recipe.preparation_time.present? %>
+          <%= @recipe.preparation_time %>
+        <% else %>
+          Not specified
+        <% end %></h3>
+    
+      <%= form_with(model: @recipe, url: toggle_privacy_recipe_path(@recipe), method: :patch) do |form| %>
+        <h3 class="center-elements-row">
+          <strong>Status:</strong> <%= @recipe.public ? "Public" : "Private" %>
+        </h3>
+        <div class="center-elements-row">
+          <%= form.submit @recipe.public ? "Make Private" : "Make Public", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+    <h3 class="center-elements">Cooking Time (minutes): 
+      <% if @recipe.cooking_time.present? %>
+        <%= @recipe.cooking_time %>
+      <% else %>
+        Not specified
+      <% end %></h3>
+    <div class="description-recipe">
+      <strong>Recipe Description:</strong>
+      <p>
+        <% if @recipe.description.present? %>
+          <%= @recipe.description %>
+        <% else %>
+          No instructions available.
+        <% end %>
+      </p>
+    </div>
+  </div>
 
-<%= link_to "Add Food to Recipe", new_user_recipe_recipe_food_path(current_user, @recipe) %>
-
-<h2>Foods in This Recipe</h2>
-<ul>
-  <% total_value = 0 %>
-  <% @recipe.recipe_foods.each do |recipe_food| %>
-    <li>
-    <%= recipe_food.food.name %> - Quantity: <%= recipe_food.quantity %> (<%= recipe_food.food.measurement_unit %>) - Price: <%= recipe_food.food.price %> |
-    <% food_total = recipe_food.quantity * recipe_food.food.price %>
-    <%= form_with(model: recipe_food, local: true, url: user_recipe_recipe_food_path(current_user, @recipe, recipe_food), method: :patch) do |form| %>
-      <div>
-        <%= form.text_field :quantity, class: 'form-control-lg', type: 'number', step: '0.1', min: 1 %>
-        <%= form.submit "Update" %>
-        <%= button_to "Delete", user_recipe_recipe_food_path(current_user, @recipe, recipe_food), method: :delete, remote: true %>
-      </div>
+  <div class="recipes-content-2">
+    <h2>Foods in This Recipe</h2>
+<table style="text-align: center; margin: 0 auto;">
+  <thead>
+    <tr>
+      <th>Food</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% total_value = 0 %>
+    <% @recipe.recipe_foods.each_with_index do |recipe_food, index| %>
+      <% food_total = recipe_food.quantity * recipe_food.food.price %>
+      <tr class="<%= index.even? ? 'even' : 'odd' %>">
+        <td><%= recipe_food.food.name %></td>
+        <td><%= recipe_food.quantity %> (<%= recipe_food.food.measurement_unit %>)</td>
+        <td><%= recipe_food.food.price %></td>
+        <td>
+          <%= link_to "Modify", edit_user_recipe_recipe_food_path(current_user, recipe_food.recipe, recipe_food) %>
+          <%= button_to "Delete", user_recipe_recipe_food_path(current_user, @recipe, recipe_food), method: :delete, remote: true %>
+        </td>
+      </tr>
+      <% total_value += food_total %>
     <% end %>
-    (Total: <%= food_total %>)
-    <% total_value += food_total %>
-  </li>
+  </tbody>
+</table>
 
-    <%= link_to "Edit this recipe", edit_user_recipe_recipe_food_path(current_user, recipe_food.recipe, recipe_food) %> 
-  <% end %>
-</ul>
+<style>
+  .even {
+    background-color: #f2f2f2; /* Gris claro */
+  }
 
-<p>Total Value: <%= total_value %></p>
+  .odd {
+    background-color: #ffffff; /* Blanco */
+  }
+</style>
+
+
+
+    <p>Total Value: <%= total_value %></p>
+
+    <div>
+      <%= link_to "Add Food to Recipe", new_user_recipe_recipe_food_path(current_user, @recipe) %> |
+      <%= link_to "Back to recipes", user_recipes_path %> |
+      <%= button_to "Delete", user_recipe_path(current_user, @recipe), method: :delete %>
+    </div>
+  </div>
+</div>
