@@ -30,10 +30,10 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     if @recipe.update(recipe_params)
       flash[:success] = 'Recipe updated!'
-      redirect_to user_recipes_path(current_user, @recipe)
+      redirect_to user_recipe_path(current_user, @recipe)
     else
       render 'edit'
-    end
+    end  
   end
 
   def destroy

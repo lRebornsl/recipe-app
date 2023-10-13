@@ -14,7 +14,7 @@ class RecipeFoodsController < ApplicationController
   def create
     recipe_food = RecipeFood.new(recipe_food_params)
     if recipe_food.save
-      redirect_to new_user_food_path(recipe_food.recipe_id)
+      redirect_to user_recipe_path(user_id: current_user.id, id: recipe_food.recipe_id)
     else
       render :new
     end
@@ -22,24 +22,34 @@ class RecipeFoodsController < ApplicationController
 
   def update
     @recipe_food = RecipeFood.find(params[:id])
-    return unless @recipe_food.update(recipe_food_params)
-
+    if @recipe_food.update(recipe_food_params)
+      flash[:success] = "Quantity updated successfully"
+    else
+      flash[:error] = "Failed to update quantity"
+    end
     redirect_to user_recipe_path(current_user, @recipe_food.recipe)
+  
+  end
+
+  def edit
+    @user = current_user
+    @recipe = Recipe.find(params[:recipe_id])
+    @recipe_food = RecipeFood.find(params[:id])
+    @foods = Food.all
   end
 
   def destroy
+    @user = current_user
+    @recipe = Recipe.find(params[:recipe_id])
     @recipe_food = RecipeFood.find(params[:id])
-    recipe = @recipe_food.recipe
-
-    return unless @recipe_food.destroy
-
-    redirect_to user_recipe_path(current_user, recipe)
+    @recipe_food.destroy
+    redirect_to user_recipe_path(@user, @recipe), notice: 'Food removed from recipe.'
   end
 
   private
 
   def recipe_food_params
-    params.require(:recipe_food).permit(:quantity)
+    params.require(:recipe_food).permit(:quantity, :recipe_id, :food_id)
   end
 
   def filter_foods(recipe, foods)

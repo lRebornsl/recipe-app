@@ -26,7 +26,20 @@
     <%= form.check_box :public %>
   </div>
 
+  <h2>Foods in This Recipe</h2>
+  <ul>
+    <% recipe.recipe_foods.each do |recipe_food| %>
+      <li>
+        <%= recipe_food.food.name %> - Quantity:
+        <%= form.number_field "recipe_foods_attributes[#{recipe_food.id}][quantity]", value: recipe_food.quantity %>
+        (<%= recipe_food.food.measurement_unit %>) - Price: <%= recipe_food.food.price %>
+
+        <%= button_to "Delete", user_recipe_recipe_food_path(recipe.user, recipe, recipe_food), method: :delete, remote: true %>
+      </li>
+    <% end %>
+  </ul>
+
   <div>
-    <%= form.submit %>
+    <%= form.submit "Save Recipe"%>
   </div>
 <% end %>

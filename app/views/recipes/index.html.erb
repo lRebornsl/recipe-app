@@ -8,7 +8,6 @@
     <strong>Status:</strong> <%= recipe.public ? "Public" : "Private" %>
     <p>
       <%= link_to "Show this recipe", user_recipe_path(current_user, recipe) %> |
-      <%= link_to "Edit", edit_user_recipe_path(current_user, recipe) %> | 
       <%= button_to "Delete", user_recipe_path(current_user, recipe), method: :delete %>
     </p>
   <% end %>
