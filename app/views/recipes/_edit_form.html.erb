@@ -1,0 +1,30 @@
+<%= form_with(model: [current_user, recipe], local: true, url: user_recipe_path(current_user, recipe), method: :patch) do |form| %>
+
+  <% if recipe.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+      <ul>
+        <% recipe.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <h2>Foods in This Recipe</h2>
+  <ul>
+    <% recipe.recipe_foods.each do |recipe_food| %>
+      <li>
+        <%= recipe_food.food.name %> - Quantity:
+        <%= form.number_field "recipe_foods_attributes[#{recipe_food.id}][quantity]", value: recipe_food.quantity %>
+        (<%= recipe_food.food.measurement_unit %>) - Price: <%= recipe_food.food.price %>
+
+        <%= button_to "Delete", user_recipe_recipe_food_path(recipe.user, recipe, recipe_food), method: :delete, remote: true %>
+      </li>
+    <% end %>
+  </ul>
+  <div>
+    <%= form.submit "Save Recipe"%>
+  </div>
+<% end %>

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  patch 'user_recipes/:id/toggle_privacy', to: 'recipes#toggle_privacy', as: 'toggle_privacy_recipe'
+
+
 	devise_for :users
   
   devise_scope :user do
@@ -13,6 +16,8 @@ Rails.application.routes.draw do
   
   resources :users do
     resources :foods, only: [:index, :new, :create, :destroy]
-    resources :recipes
+    resources :recipes do
+      resources :recipe_foods, only: [:new, :create, :update, :destroy, :edit]
+    end
   end
 end

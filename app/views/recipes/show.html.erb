@@ -1,10 +1,90 @@
 <p style="color: green"><%= notice %></p>
+<div class="div-recipes">
+  <div class="div-recipe recipes-content">
+    <%# <%= render @recipe %>
+    <h2 class="center-elements"><%= @recipe.name %></h2>
+    <div class="center-elements-row">
+      <h3 class="center-elements">Preparation Time (minutes): 
+        <% if @recipe.preparation_time.present? %>
+          <%= @recipe.preparation_time %>
+        <% else %>
+          Not specified
+        <% end %></h3>
+    
+      <%= form_with(model: @recipe, url: toggle_privacy_recipe_path(@recipe), method: :patch) do |form| %>
+        <h3 class="center-elements-row">
+          <strong>Status:</strong> <%= @recipe.public ? "Public" : "Private" %>
+        </h3>
+        <div class="center-elements-row">
+          <%= form.submit @recipe.public ? "Make Private" : "Make Public", class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+    <h3 class="center-elements">Cooking Time (minutes): 
+      <% if @recipe.cooking_time.present? %>
+        <%= @recipe.cooking_time %>
+      <% else %>
+        Not specified
+      <% end %></h3>
+    <div class="description-recipe">
+      <strong>Recipe Description:</strong>
+      <p>
+        <% if @recipe.description.present? %>
+          <%= @recipe.description %>
+        <% else %>
+          No instructions available.
+        <% end %>
+      </p>
+    </div>
+  </div>
 
-<%= render @recipe %>
+  <div class="recipes-content-2">
+    <h2>Foods in This Recipe</h2>
+<table style="text-align: center; margin: 0 auto;">
+  <thead>
+    <tr>
+      <th>Food</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% total_value = 0 %>
+    <% @recipe.recipe_foods.each_with_index do |recipe_food, index| %>
+      <% food_total = recipe_food.quantity * recipe_food.food.price %>
+      <tr class="<%= index.even? ? 'even' : 'odd' %>">
+        <td><%= recipe_food.food.name %></td>
+        <td><%= recipe_food.quantity %> (<%= recipe_food.food.measurement_unit %>)</td>
+        <td><%= recipe_food.food.price %></td>
+        <td>
+          <%= link_to "Modify", edit_user_recipe_recipe_food_path(current_user, recipe_food.recipe, recipe_food) %>
+          <%= button_to "Delete", user_recipe_recipe_food_path(current_user, @recipe, recipe_food), method: :delete, remote: true %>
+        </td>
+      </tr>
+      <% total_value += food_total %>
+    <% end %>
+  </tbody>
+</table>
 
-<div>
-  <%= link_to "Edit this recipe", edit_recipe_path(@recipe) %> |
-  <%= link_to "Back to recipes", recipes_path %>
+<style>
+  .even {
+    background-color: #f2f2f2; /* Gris claro */
+  }
 
-  <%= button_to "Destroy this recipe", @recipe, method: :delete %>
+  .odd {
+    background-color: #ffffff; /* Blanco */
+  }
+</style>
+
+
+
+    <p>Total Value: <%= total_value %></p>
+
+    <div>
+      <%= link_to "Add Food to Recipe", new_user_recipe_recipe_food_path(current_user, @recipe) %> |
+      <%= link_to "Back to recipes", user_recipes_path %> |
+      <%= button_to "Delete", user_recipe_path(current_user, @recipe), method: :delete %>
+    </div>
+  </div>
 </div>

@@ -4,7 +4,9 @@
       <div class="flex">
         <% if user_signed_in? %>
           <li><%= link_to 'Inicio', users_path %></li>
-          <%= link_to 'Food List', user_foods_path(current_user), class: 'pl-4' %>
+          <li><%= link_to 'Food List', user_foods_path(current_user), class: 'pl-4' %></li>
+          <li><%= link_to 'Recipes', user_recipes_path(current_user), class: 'pl-4' %></li>
+          <li><%= link_to 'My Recipes', current_user, class: 'pl-4' %></li>
         <% else %>
           <li><%= link_to 'Inicio', users_path %></li>
         <% end %>
