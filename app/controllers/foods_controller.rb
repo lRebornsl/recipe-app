@@ -21,7 +21,7 @@ class FoodsController < ApplicationController
     end
   end
 
-  ef destroy
+  def destroy
     @food = Food.find_by(user_id: params[:user_id], id: params[:id])
     @recipe_food = RecipeFood.find_by(food_id: @food.id)
     @recipe_food&.destroy
