@@ -16,5 +16,4 @@ RSpec.feature 'User Show Page', type: :feature do
     expect(page).to have_link('Back to users', href: users_path)
     expect(page).to have_button('Delete this user')
   end
-
 end

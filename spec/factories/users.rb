@@ -18,12 +18,11 @@ FactoryBot.define do
   factory :recipe_food do
     quantity { 1 }
     association :food, factory: :food
-  end 
+  end
 
   factory :food do
     name { 'Sample Food' }
     measurement_unit { 'g' }
     price { 5.0 }
   end
-
 end

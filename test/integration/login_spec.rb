@@ -17,9 +17,9 @@ RSpec.feature 'Login', type: :feature do
   scenario 'User can log out' do
     user = create(:user)
     sign_in user
-  
+
     visit authenticated_root_path
-  
+
     expect(page).to have_content('Forgot your password?')
   end
 end
