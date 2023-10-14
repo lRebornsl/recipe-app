@@ -15,10 +15,12 @@ class ShoppingListsController < ApplicationController
       @greater_quantities[food_id] = {
         name: food.name,
         quantity: difference,
+        measurement_unit: food.measurement_unit,
         price: food.price * difference
       }
       total_price += @greater_quantities[food_id][:price]
     end
+    @greater_quantities_array = @greater_quantities.to_a
     @total_foods = @greater_quantities.size
     @total_price = total_price
   end
