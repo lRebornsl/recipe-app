@@ -1,6 +1,9 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 require 'database_cleaner'
+require 'devise'
+require 'capybara/rspec'
+require 'rails-controller-testing'
 
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
@@ -19,6 +22,10 @@ RSpec.configure do |config|
   config.fixture_path = "#{Rails.root}/spec/fixtures"
 
   config.include FactoryBot::Syntax::Methods
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :feature
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
