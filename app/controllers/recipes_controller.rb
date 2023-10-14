@@ -12,10 +12,19 @@ class RecipesController < ApplicationController
     @recipe = current_user.recipes.build(recipe_params)
     if @recipe.save
       flash[:success] = 'Recipe created!'
-      # redirect_to @recipe
-      redirect_to user_path(current_user)
+      redirect_back(fallback_location: user_recipes_path(current_user, @recipe))
     else
       render 'new'
+    end
+  end
+
+  def update
+    @recipe = Recipe.find(params[:id])
+    if @recipe.update(recipe_params)
+      flash[:success] = 'Recipe updated!'
+      redirect_back(fallback_location: user_recipes_path(current_user, @recipe))
+    else
+      render 'edit'
     end
   end
 
@@ -25,16 +34,6 @@ class RecipesController < ApplicationController
 
   def edit
     @recipe = Recipe.find(params[:id])
-  end
-
-  def update
-    @recipe = Recipe.find(params[:id])
-    if @recipe.update(recipe_params)
-      flash[:success] = 'Recipe updated!'
-      redirect_to user_recipe_path(current_user, @recipe)
-    else
-      render 'edit'
-    end
   end
 
   def destroy
@@ -57,6 +56,6 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:name, :description, :public, :user_id)
+    params.require(:recipe).permit(:name, :description, :public, :user_id, :preparation_time, :cooking_time)
   end
 end
