@@ -1,16 +1,21 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Public Recipes</h1>
-
-<div id="recipes" class="border border-solid border-black rounded-md p-4">
-  <% @recipes.each do |recipe| %>
-    <%= render recipe %>
-    <strong>Status:</strong> <%= recipe.public ? "Public" : "Private" %>
-    <p>
-      <%= link_to "Show this recipe", user_recipe_path(current_user, recipe) %> |
-      <%= button_to "Delete", user_recipe_path(current_user, recipe), method: :delete %>
-    </p>
-  <% end %>
+<div class="w-full text-end py-4">
+  <%= link_to "Add new recipe", new_user_recipe_path(current_user), class: "border border-black px-4" %>
 </div>
+<h2 class="text-2xl font-bold mb-4">My Recipes</h2>
 
-<%= link_to "New recipe", new_user_recipe_path(current_user) %>
+<div>  
+  <div id="recipes" class="recipe-index">
+  <% @recipes.each_with_index do |recipe, index| %>
+    <div class="border border-solid border-black flex py-2">
+      <div class="recipe-index-title basis-1/4">
+        <%= link_to recipe.name, user_recipe_path(@user, recipe), class: "text-center w-full font-bold text-xl pb-2" %>
+        <%= link_to "remove", user_recipe_path(@user, recipe), method: :delete, class: "uppercase underline text-blue-400 text-center w-full" %>
+      </div>
+      <div class="recipe-index-description">
+        <h3>Description for the recipe.</h3>
+        <%= link_to recipe.description, user_recipe_path(@user, recipe) %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>
