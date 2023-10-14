@@ -1,0 +1,7 @@
+<h1 class="text-2xl py-4 font-bold">Public Recipes</h1>
+
+<div id="recipes" class="w-1/2">
+  <% @recipes.each do |recipe| %>
+    <%= render recipe %>
+  <% end %>
+</div>

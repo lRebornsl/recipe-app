@@ -4,7 +4,8 @@ class RecipesController < ApplicationController
   end
 
   def index
-    @recipes = Recipe.where(public: true)
+    @user = User.all
+    @recipes = Recipe.where(user_id: current_user.id)
   end
 
   def create
