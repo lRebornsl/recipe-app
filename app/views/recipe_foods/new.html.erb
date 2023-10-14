@@ -4,7 +4,7 @@
     <%= form_with(model: [@recipe, @new_recipe_food], url: user_recipe_recipe_foods_path(current_user, @recipe), class: 'container') do |form| %>
       <div class="form-div d-flex flex-wrap column-gap-3 row-gap-3">
         <%= form.hidden_field :recipe_id, value: @recipe.id %>
-        <%= form.collection_select :food_id, @foods, :id, :name, prompt: 'Selecciona una categoría', class: 'select' %>
+        <%= form.collection_select :food_id, @foods, :id, :name, prompt: 'Select food', class: 'select' %>
         <div class="d-flex flex-wrap column-gap-3">
           <%= form.label :quantity, "Necessary quantity:", class: 'col-form-label' %>
           <%= form.number_field :quantity, :required => true, class: 'form-control-lg' %>
