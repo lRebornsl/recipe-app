@@ -1,0 +1,9 @@
+<div id="<%= dom_id food %>" class="grid grid-cols-5 <%= index.even? ? 'bg-gray-200' : '' %>">
+  <p class="border-r border-black pl-2 py-2"><%= food.name %></p>
+  <p class="border-r border-black pl-2 py-2"><%= food.measurement_unit %></p>
+  <p class="border-r border-black pl-2 py-2">$<%= food.price %></p>
+  <p class="border-r border-black pl-2 py-2"><%= food.quantity %></p>
+  <%= button_to user_food_path(@user.id, food.id), action: 'destroy', data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, remote: true, class: "underline text-blue-500 pl-2 py-2" do %>
+    Delete
+  <% end %>
+</div>

@@ -1,0 +1,7 @@
+<h1 class="text-2xl font-bold py-4">Modify Ingredients</h1>
+
+<%= render "edit_form", recipe: @recipe %>
+
+<div class="border border-black px-4 my-4">
+  <%= link_to 'Cancel', user_recipe_path(current_user, @recipe) %>
+</div>

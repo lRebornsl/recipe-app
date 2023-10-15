@@ -1,0 +1,11 @@
+<div id="<%= dom_id recipe %>" class="flex border border-solid border-black mb-4 p-2">
+  <div class="basis-1/2">
+    <p class="text-xl font-bold"><%= link_to recipe.name, user_recipe_path(current_user, recipe) %></p>
+    <p class="pt-4">By: <%= recipe.user.name %></p>
+  </div>
+
+  <div class="basis-1/2">
+    <p>Total food items: <%= recipe.foods.count %></p>
+    <p>Total price: <%= calculate_total_price(recipe) %></p>
+  </div>
+</div>

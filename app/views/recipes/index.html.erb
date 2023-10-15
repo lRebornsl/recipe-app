@@ -1,0 +1,21 @@
+<div class="w-full text-end py-4">
+  <%= link_to "Add new recipe", new_user_recipe_path(current_user), class: "border border-black px-4" %>
+</div>
+<h2 class="text-2xl font-bold mb-4">My Recipes</h2>
+
+<div>  
+  <div id="recipes" class="recipe-index">
+  <% @recipes.each_with_index do |recipe, index| %>
+    <div class="border border-solid border-black flex py-2 mb-4">
+      <div class="recipe-index-title basis-1/4">
+        <%= link_to recipe.name, user_recipe_path(@user, recipe), class: "text-center w-full font-bold text-xl pb-2" %>
+        <%= button_to "remove", user_recipe_path(@user, recipe), method: :delete, class: "w-full uppercase underline text-blue-400 pl-12" %>
+      </div>
+      <div class="recipe-index-description">
+        <h3>Description for the recipe.</h3>
+        <p><%= recipe.description %></p>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>

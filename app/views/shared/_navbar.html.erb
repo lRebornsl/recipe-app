@@ -1,0 +1,23 @@
+<div class="border-b border-black">
+  <nav class="container mx-auto py-8">
+    <ul class="flex justify-between">
+      <div class="flex">
+        <% if user_signed_in? %>
+          <li><%= link_to 'Public Recipes', public_recipes_path %></li>
+          <li><%= link_to 'Food List', user_foods_path(current_user), class: 'pl-4' %></li>
+          <li><%= link_to 'My Recipes', user_recipes_path(current_user), class: 'pl-4' %></li>
+        <% end %>
+      </div>
+      <div class="flex">
+        <% if user_signed_in? %>
+          <%= button_to destroy_user_session_path, method: :delete do %>
+            Log Out
+          <% end %>
+        <% else %>
+          <li class="pr-4"><%= button_to 'Sign-in', new_user_session_path %></li>
+          <li><%= link_to 'Sign-up', new_user_registration_path %></li>
+        <% end %>
+      </div>
+    </ul>
+  </nav>
+</div>
