@@ -48,6 +48,8 @@ The information is saved in a PostgreSQL database with these tables:
 * Use of Rails framework.
 * MVC architecture.
 * Save and retrieve information from a PostgreSQL database.
+* Use of Active Record to create models and migrations.
+* Use of RSpec for unit testing.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -114,8 +116,9 @@ rspec
 <!-- FUTURE FEATURES -->
 
 ## 🔭 Future Features <a id="future-features"></a>
-- [ ] **Interactive UI.**
-- [ ] **Let the user Log in, make posts, comments and likes.**
+
+-[] Add a search bar to search for recipes by name.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->

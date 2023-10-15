@@ -13,44 +13,34 @@
 
   <div>
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "w-full" %>
   </div>
 
   <div>
     <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class: "w-full" %>
   </div>
 
   <div>
     <%= form.label :preparation_time, "Preparation Time (minutes):" %>
-    <%= form.number_field :preparation_time, min: 0 %>
+    <%= form.number_field :preparation_time, min: 0, class: "w-full" %>
   </div>
 
   <div>
     <%= form.label :cooking_time, "Cooking Time (minutes):" %>
-    <%= form.number_field :cooking_time, min: 0 %>
-  </div>
-  
-  <div>
-    <%= form.label :description, "Recipe Instructions:" %>
-    <%= form.text_area :description%>
-  </div>
-  <%= form.submit "Update Recipe Details" %>
+    <%= form.number_field :cooking_time, min: 0, class: "w-full" %>
   </div>
 
-
-
-
-
-
-
-
-  <div>
+  <div class="pt-4">
     <%= form.label :public %>
     <%= form.check_box :public %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="my-4 text-center border border-black">
+    <%= form.submit "Create Recipe" %>
+  </div>
+
+  <div class="border border-black text-center">
+    <%= link_to "Back to recipes", user_recipes_path %>
   </div>
 <% end %>
