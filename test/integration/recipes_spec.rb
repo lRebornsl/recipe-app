@@ -6,8 +6,10 @@ RSpec.describe 'recipes/index.html.erb', type: :view do
       user = User.create(id: 1, name: 'Nico', email: 'nicobolanez@gmail.com', password: '123456')
       @user = user
 
-      recipe1 = Recipe.create(name: 'Burger', preparation_time: 34, cooking_time: 45, description: 'Test recipe 1', public: true, user: user)
-      recipe2 = Recipe.create(name: 'Pizza', preparation_time: 25, cooking_time: 30, description: 'Test recipe 2', public: true, user: user)
+      recipe1 = Recipe.create(name: 'Burger', preparation_time: 34, cooking_time: 45, description: 'Test recipe 1',
+                              public: true, user:)
+      recipe2 = Recipe.create(name: 'Pizza', preparation_time: 25, cooking_time: 30, description: 'Test recipe 2',
+                              public: true, user:)
 
       @recipes = [recipe1, recipe2]
 
